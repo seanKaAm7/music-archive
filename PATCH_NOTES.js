@@ -1,5 +1,48 @@
 /*
 ---------
+[2026년 03월 23일 — v0.4]
+
+[app.js 수정]
+ * getSpotifyCoverFromCache() 헬퍼 추가
+   - localStorage에서 24시간 TTL 이내 캐시된 Spotify 커버 URL 동기 반환
+ * renderAlbumCard()에 data-card-id 속성 추가 및 캐시 커버 즉시 적용
+   - coverImage 없는 앨범도 캐시된 이미지 있으면 카드 렌더 시 바로 표시
+ * enrichCardCovers() 비동기 함수 추가
+   - 장르/연도/아티스트 페이지 진입 시 coverImage 없는 앨범 대상으로 실행
+   - 캐시 있으면 즉시 적용, 없으면 Spotify API 조회 후 카드 이미지 업데이트
+   - initGenre(), initYear(), initArtist() 끝에 각각 호출 추가
+ * _applyCardCover()에 album-row 커버 업데이트 로직 추가
+   - 인덱스 페이지 앨범 리스트(album-row)에도 Spotify 커버 반영
+ * initIndex() 전면 개편
+   - 소개 카드(index-intro-card) + 장르 카드 2열 그리드 렌더
+   - selectGenre() 함수로 장르 카드 클릭 시 우측 패널(index-album-panel) 앨범 리스트 업데이트
+   - 활성 장르 카드에 .active 클래스 토글
+ * selectGenre() 함수 신규 추가
+   - 클릭된 장르의 앨범 리스트를 index-content에 렌더
+   - enrichCardCovers() 호출로 커버 비동기 보강
+
+[index.html 수정]
+ * hero 섹션(MUSIC ARCHIVE 로고) 유지
+ * genre-section 내부에 index-split 구조 추가
+   - 좌측: genre-grid (장르 카드 2열 + 소개 카드)
+   - 우측: index-album-panel (선택된 장르 앨범 리스트)
+
+[styles.css 수정]
+ * 기존 genre-grid: repeat(auto-fill, minmax(200px, 1fr)) → repeat(2, 1fr) 변경
+ * index-split: 좌우 2열 grid 레이아웃
+ * index-album-panel: sticky + max-height + overflow-y 스크롤
+ * album-list, album-row, album-row-cover, album-row-info 등 리스트 뷰 스타일 추가
+ * .genre-card.active: 활성 장르 카드 테두리 강조
+
+[data.js 수정]
+ * 나머지 10개 신규 앨범 spotifyAlbumId 추가 완료
+   - discovery, in-colour, newjeans-ep, omg, how-sweet, supernatural-newjeans,
+     in-rainbows, currents, songs-in-the-key-of-life, goldberg-variations
+
+---------
+*/
+/*
+---------
 [2026년 03월 20일 — v0.3]
 
 [신규 파일]

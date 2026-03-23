@@ -220,6 +220,13 @@ AI는 매 대화 시작 시 다음 절차를 *반드시* 수행하여 문맥을 
 */
 /*
 -----------------------------------------
+[Log #25] [2026-03-23 현재]
+ * 사용자: 장르 페이지 카드 목록에서 신규 앨범 커버가 안 보임. 메인 페이지 UI 개편 요청 — 장르 카드 2열, 우측 앨범 리스트, 사이트 소개 카드 추가, MUSIC ARCHIVE 로고 유지.
+ * 작업: (1) 장르/연도/아티스트 페이지 카드 목록 Spotify 커버 보강 — getSpotifyCoverFromCache() 헬퍼 추가, renderAlbumCard()에 data-card-id 및 캐시 커버 즉시 적용, enrichCardCovers() 비동기 함수 추가(캐시 없는 앨범은 API 조회 후 카드 업데이트), _applyCardCover()에 album-row 커버도 업데이트하도록 확장. (2) 나머지 10개 신규 앨범 spotifyAlbumId 추가 완료 — discovery, in-colour, newjeans-ep, omg, how-sweet, supernatural-newjeans, in-rainbows, currents, songs-in-the-key-of-life, goldberg-variations. (3) 인덱스 페이지 UI 개편 — index.html에 index-split 구조 추가(genre-grid 좌측 + index-album-panel 우측), 장르 카드 2열 고정(repeat(2,1fr)), 첫 칸 사이트 소개 카드, selectGenre() 함수로 카드 클릭 시 우측 앨범 리스트 업데이트, MUSIC ARCHIVE 히어로 유지. Netlify 배포 완료.
+-----------------------------------------
+*/
+/*
+-----------------------------------------
 [Log #24] [2026-03-20 현재]
  * 사용자: 지금까지 한 여기서 너가 한 패치를 정리하는 파일을 하나 만들어줘. 최대한 상세하게 / kpop쪽은 bts 블랙핑크 빼고 뉴진스로만 채워줘. 뉴진스가 낸 모든 앨범 미니앨범 ep 다 추가해줘
  * 작업: (1) PATCH_NOTES.js에 v0.3 패치노트 맨 위에 추가 — 이번 세션 전체 작업(신규 파일, app.js 수정 내역, spotify.js 구현 내용, data.js 앨범 추가, Netlify CLI) 상세 기록. (2) data.js에서 BTS, BLACKPINK 앨범 삭제 후 NewJeans 전체 디스코그래피 4종 추가 (New Jeans EP 2022, OMG 2023, How Sweet 2024, Supernatural 2024 — Get Up은 기존 DB에 존재).
